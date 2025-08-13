@@ -14,9 +14,9 @@ DEVICE 		:= 32MZ1024EFH064
 # The DFP is expected to be in the format of Microchip/PIC32MZ-EF_DFP/1.4.168.
 COMPILER_LOCATION := C:/Program Files/Microchip/xc32/v4.60/bin
 #/opt/microchip/xc32/v4.60/bin
-DFP_LOCATION := C:/Program Files/Microchip/mplabx/v6.25/packs
+DFP_LOCATION := C:/Program Files/Microchip/MPLABX/v6.25/packs
 DFP := $(DFP_LOCATION)/Microchip/PIC32MZ-EF_DFP/1.4.168
-
+#\Microchip\PIC32MZ-EF_DFP\1.4.168\xc32\32MZ1024EFH064
 
 BUILD=make
 CLEAN=make clean

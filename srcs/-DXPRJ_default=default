@@ -1,1 +1,25 @@
-../objs/cips/timers/timer1.o: ../srcs/cips/timers/timer1.c
+../objs/main.o: ../srcs/main.c ../srcs/../incs/definitions.h \
+ ../srcs/../incs/cips/clk/plib_clk.h \
+ ../srcs/../incs/cips/gpio/plib_gpio.h ../incs/device.h \
+ ../incs/toolchain_specifics.h ../srcs/../incs/cips/evic/plib_evic.h \
+ ../srcs/../incs/cips/tmr1/plib_tmr1.h \
+ ../srcs/../incs/cips/tmr1/plib_tmr1_common.h \
+ ../srcs/../incs/cips/gpio/plib_gpio.h
+
+../srcs/../incs/definitions.h:
+
+../srcs/../incs/cips/clk/plib_clk.h:
+
+../srcs/../incs/cips/gpio/plib_gpio.h:
+
+../incs/device.h:
+
+../incs/toolchain_specifics.h:
+
+../srcs/../incs/cips/evic/plib_evic.h:
+
+../srcs/../incs/cips/tmr1/plib_tmr1.h:
+
+../srcs/../incs/cips/tmr1/plib_tmr1_common.h:
+
+../srcs/../incs/cips/gpio/plib_gpio.h:

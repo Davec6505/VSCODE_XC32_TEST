@@ -1,18 +1,20 @@
 /*******************************************************************************
- System Interrupts File
+  Device Header File
 
   Company:
     Microchip Technology Inc.
 
   File Name:
-    interrupt.h
+    device.h
 
   Summary:
-    Interrupt vectors mapping
+    This file includes the selected device from within the project.
+    The device will provide access to respective device packs.
 
   Description:
-    This file contains declarations of device vectors used by Harmony 3
- *******************************************************************************/
+    None
+
+*******************************************************************************/
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
@@ -36,28 +38,14 @@
 * FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
- *******************************************************************************/
+*******************************************************************************/
 // DOM-IGNORE-END
 
-#ifndef INTERRUPTS_H
-#define INTERRUPTS_H
+#ifndef DEVICE_H
+#define DEVICE_H
 
-// *****************************************************************************
-// *****************************************************************************
-// Section: Included Files
-// *****************************************************************************
-// *****************************************************************************
-#include <stdint.h>
+#include <xc.h>
+#include <sys/attribs.h>
+#include "toolchain_specifics.h"
 
-
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Handler Routines
-// *****************************************************************************
-// *****************************************************************************
-void TIMER_1_InterruptHandler( void );
-
-
-
-#endif // INTERRUPTS_H
+#endif //DEVICE_H

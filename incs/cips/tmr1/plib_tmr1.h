@@ -1,26 +1,25 @@
 /*******************************************************************************
- System Interrupts File
+  Data Type definition of Timer PLIB
 
   Company:
     Microchip Technology Inc.
 
   File Name:
-    interrupt.c
+    plib_tmr1.h
 
   Summary:
-    Interrupt vectors mapping
+    Data Type definition of the Timer Peripheral Interface Plib.
 
   Description:
-    This file maps all the interrupt vectors to their corresponding
-    implementations. If a particular module interrupt is used, then its ISR
-    definition can be found in corresponding PLIB source file. If a module
-    interrupt is not used, then its ISR implementation is mapped to dummy
-    handler.
- *******************************************************************************/
+    This file defines the Data Types for the Timer Plib.
 
-// DOM-IGNORE-BEGIN
+  Remarks:
+    None.
+
+*******************************************************************************/
+
 /*******************************************************************************
-* Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -40,48 +39,65 @@
 * FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
- *******************************************************************************/
+*******************************************************************************/
+
+#ifndef PLIB_TMR1_H
+#define PLIB_TMR1_H
+
+#include <stddef.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include "device.h"
+#include "plib_tmr1_common.h"
+
+
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
+
+    extern "C" {
+
+#endif
 // DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Included Files
-// *****************************************************************************
-// *****************************************************************************
-#include "interrupts.h"
-#include "definitions.h"
-
-
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: System Interrupt Vector Functions
+// Section: Data Types
 // *****************************************************************************
 // *****************************************************************************
 
-
-/* All the handlers are defined here.  Each will call its PLIB-specific function. */
 // *****************************************************************************
 // *****************************************************************************
-// Section: System Interrupt Vector declarations
+// Section: Interface Routines
 // *****************************************************************************
 // *****************************************************************************
-void TIMER_1_Handler (void);
-
 
 // *****************************************************************************
-// *****************************************************************************
-// Section: System Interrupt Vector definitions
-// *****************************************************************************
-// *****************************************************************************
-void __attribute__((used)) __ISR(_TIMER_1_VECTOR, ipl4SRS) TIMER_1_Handler (void)
-{
-    TIMER_1_InterruptHandler();
-}
+void TMR1_Initialize(void);
+
+void TMR1_Start(void);
+
+void TMR1_Stop(void);
+
+void TMR1_PeriodSet(uint16_t period);
+
+uint16_t TMR1_PeriodGet(void);
+
+uint16_t TMR1_CounterGet(void);
+
+uint32_t TMR1_FrequencyGet(void);
+
+void TMR1_InterruptEnable(void);
+
+void TMR1_InterruptDisable(void);
+
+void TMR1_CallbackRegister( TMR1_CALLBACK callback_fn, uintptr_t context );
 
 
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
 
+    }
+#endif
+// DOM-IGNORE-END
 
-/*******************************************************************************
- End of File
-*/
+#endif /* PLIB_TMR1_H */
