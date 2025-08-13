@@ -1,0 +1,31 @@
+{
+    "configurations": [
+        {
+            "name": "XC32",
+            "includePath": [
+                "${workspaceFolder}/incs",
+                "${workspaceFolder}/srcs",
+                "C:/Program Files/Microchip/xc32/v4.60/pic32mx/include",
+                "C:/Program Files/Microchip/xc32/v4.60/include",
+                "C:/Program Files/Microchip/mplabx/v6.25/packs/Microchip/PIC32MZ-EF_DFP/1.4.168/include",
+                "C:/Program Files/Microchip/mplabx/v6.25/packs/Microchip/PIC32MZ-EF_DFP/1.4.168/include/proc"
+            ],
+            "defines": [
+                "__XC32__",
+                "__PIC32MZ__",
+                "__32MZ1024EFH064__",
+                "_XTAL_FREQ=200000000",
+                "XPRJ_default=default",
+                "__PIC32_FEATURE_SET__=64"
+            ],
+            "compilerPath": "C:/Program Files/Microchip/xc32/v4.60/bin/xc32-gcc.exe",
+            "cStandard": "c99",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64",
+            "compilerArgs": [
+                "-mprocessor=32MZ1024EFH064"
+            ]
+        }
+    ],
+    "version": 4
+}

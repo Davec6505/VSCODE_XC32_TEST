@@ -1,0 +1,1 @@
+../objs/cips/timers/timer1.o: ../srcs/cips/timers/timer1.c
