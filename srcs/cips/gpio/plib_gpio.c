@@ -17,6 +17,7 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
+#include <xc.h>
 /*******************************************************************************
 * Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
 *
@@ -61,9 +62,10 @@ void GPIO_Initialize ( void )
 {
 
     /* PORTB Initialization */
-    LATB = 0x0U; /* Initial Latch Value */
-    TRISBCLR = 0xa00U; /* Direction Control */
-    ANSELBCLR = 0xf08U; /* Digital Mode Enable */
+  LATB = 0x0U; /* Initial Latch Value */
+  TRISBCLR = 0xa00U; /* Direction Control (RB9, RB11 as output) */
+  TRISBCLR = (1 << 3); /* Ensure RB3 is output for REFCLKO1 */
+  ANSELBCLR = 0xf08U; /* Digital Mode Enable */
     /* PORTC Initialization */
     /* PORTD Initialization */
     /* PORTE Initialization */

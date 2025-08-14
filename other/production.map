@@ -46,25 +46,25 @@ section                    address  length [bytes]      (dec)  Description
 .text._cache_err_except 0x9d000844           0xd8         216   
 .text.simple_tlb_refill 0x9d00091c           0xd8         216   
 .tlb.__pic32_tlb_init_e 0x9d0009f4           0xbc         188   
-.text                   0x9d000ab0           0x7c         124  App's exec code 
-.text.GPIO_Initialize   0x9d000b2c           0x78         120   
-.text.main_entry        0x9d000ba4           0x54          84   
-.text.TIMER_1_Interrupt 0x9d000bf8           0x48          72   
-.text.EVIC_Initialize   0x9d000c40           0x44          68   
-.text.TMR1_Initialize   0x9d000c84           0x3c          60   
-.text.T1                0x9d000cc0           0x20          32   
-.text                   0x9d000ce0           0x20          32  App's exec code 
-.text._general_exceptio 0x9d000d00           0x18          24   
-.text._bootstrap_except 0x9d000d18           0x18          24   
-.text._cache_err_except 0x9d000d30           0x18          24   
-.text._simple_tlb_refil 0x9d000d48           0x18          24   
-.text                   0x9d000d60           0x30          48  App's exec code 
-.text.TMR1_Start        0x9d000d90           0x14          20   
-.text.TMR1_CallbackRegi 0x9d000da4           0x14          20   
-.rodata                 0x9d000db8           0x14          20  Read-only const 
-.text._on_reset         0x9d000dcc            0x8           8   
-.text._on_bootstrap     0x9d000dd4            0x8           8   
-      Total kseg0_program_mem used  :       0xddc        3548  0.3% of 0x100000
+.text.GPIO_Initialize   0x9d000ab0           0x80         128   
+.text                   0x9d000b30           0x7c         124  App's exec code 
+.text.main_entry        0x9d000bac           0x54          84   
+.text.TIMER_1_Interrupt 0x9d000c00           0x48          72   
+.text.EVIC_Initialize   0x9d000c48           0x44          68   
+.text.TMR1_Initialize   0x9d000c8c           0x3c          60   
+.text.T1                0x9d000cc8           0x20          32   
+.text                   0x9d000ce8           0x20          32  App's exec code 
+.text._general_exceptio 0x9d000d08           0x18          24   
+.text._bootstrap_except 0x9d000d20           0x18          24   
+.text._cache_err_except 0x9d000d38           0x18          24   
+.text._simple_tlb_refil 0x9d000d50           0x18          24   
+.text                   0x9d000d68           0x30          48  App's exec code 
+.text.TMR1_Start        0x9d000d98           0x14          20   
+.text.TMR1_CallbackRegi 0x9d000dac           0x14          20   
+.rodata                 0x9d000dc0           0x14          20  Read-only const 
+.text._on_reset         0x9d000dd4            0x8           8   
+.text._on_bootstrap     0x9d000ddc            0x8           8   
+      Total kseg0_program_mem used  :       0xde4        3556  0.3% of 0x100000
 
 kseg0 Boot-Memory Usage
 section                    address  length [bytes]      (dec)  Description
@@ -78,7 +78,7 @@ section                    address  length [bytes]      (dec)  Description
 .bev_excpt              0xbfc00380           0x10          16  BEV-Exception 
          Total kseg1_boot_mem used  :       0x1c8         456  39.6% of 0x480
         --------------------------------------------------------------------------
-         Total Program Memory used  :       0xfa4        4004  0.4% of 0x100480
+         Total Program Memory used  :       0xfac        4012  0.4% of 0x100480
         --------------------------------------------------------------------------
 
 
@@ -107,7 +107,7 @@ Microchip PIC32 Memory-Usage Report By Module
         text        data         bss         dec         hex    basename                         filename
 --------------------------------------------------------------------------------
          912           0           0         912         390    data_init                    data_init
-           0         668           0         668         29c    ccbwAwGR.o                   C:\Users\cfan\AppData\Local\Temp\ccbwAwGR.o
+           0         668           0         668         29c    ccbbAjQH.o                   C:\Users\cfan\AppData\Local\Temp\ccbbAjQH.o
          588           0           0         588         24c    startup.o                    ../objs/startup/startup.o
          448          36           0         484         1e4    pic32_init_cache.o           libpic32.a
          472           0           0         472         1d8    interrupts.o                 ../objs/interrupts.o
@@ -119,8 +119,8 @@ Microchip PIC32 Memory-Usage Report By Module
          172           0           8         180          b4    plib_tmr1.o                  ../objs/cips/tmr1/plib_tmr1.o
          144           0           0         144          90    pic32_data_init_core.o       libpic32.a
          136           0           0         136          88    initialization.o             ../objs/initialization.o
+         128           0           0         128          80    plib_gpio.o                  ../objs/cips/gpio/plib_gpio.o
          120           0           4         124          7c    main.o                       ../objs/main.o
-         120           0           0         120          78    plib_gpio.o                  ../objs/cips/gpio/plib_gpio.o
          120           0           0         120          78    exceptions.o                 ../objs/exceptions.o
           68           0           0          68          44    plib_evic.o                  ../objs/cips/evic/plib_evic.o
           32           0           0          32          20    pic32_data_init_copy.o       libpic32.a
@@ -130,7 +130,7 @@ Microchip PIC32 Memory-Usage Report By Module
            8           0           0           8           8    default-on-reset.o           libpic32.a
           48           0           0          48          30    misc                         misc
 --------------------------------------------------------------------------------
-        4524         704          12        5240        1478    ../bins/VS_XC32_CNC
+        4532         704          12        5248        1480    ../bins/VS_XC32_CNC
 
 
 Discarded input sections
@@ -238,18 +238,18 @@ Discarded input sections
  .reginfo       0x0000000000000000       0x18 ../objs/startup/startup.o
  .MIPS.abiflags
                 0x0000000000000000       0x18 ../objs/startup/startup.o
- .text          0x0000000000000000        0x0 C:\Users\cfan\AppData\Local\Temp\cc4zuXVp.o
- .data          0x0000000000000000        0x0 C:\Users\cfan\AppData\Local\Temp\cc4zuXVp.o
- .bss           0x0000000000000000        0x0 C:\Users\cfan\AppData\Local\Temp\cc4zuXVp.o
- .reginfo       0x0000000000000000       0x18 C:\Users\cfan\AppData\Local\Temp\cc4zuXVp.o
+ .text          0x0000000000000000        0x0 C:\Users\cfan\AppData\Local\Temp\ccbTU2uq.o
+ .data          0x0000000000000000        0x0 C:\Users\cfan\AppData\Local\Temp\ccbTU2uq.o
+ .bss           0x0000000000000000        0x0 C:\Users\cfan\AppData\Local\Temp\ccbTU2uq.o
+ .reginfo       0x0000000000000000       0x18 C:\Users\cfan\AppData\Local\Temp\ccbTU2uq.o
  .MIPS.abiflags
-                0x0000000000000000       0x18 C:\Users\cfan\AppData\Local\Temp\cc4zuXVp.o
- .text          0x0000000000000000        0x0 C:\Users\cfan\AppData\Local\Temp\ccbwAwGR.o
- .data          0x0000000000000000        0x0 C:\Users\cfan\AppData\Local\Temp\ccbwAwGR.o
- .bss           0x0000000000000000        0x0 C:\Users\cfan\AppData\Local\Temp\ccbwAwGR.o
- .reginfo       0x0000000000000000       0x18 C:\Users\cfan\AppData\Local\Temp\ccbwAwGR.o
+                0x0000000000000000       0x18 C:\Users\cfan\AppData\Local\Temp\ccbTU2uq.o
+ .text          0x0000000000000000        0x0 C:\Users\cfan\AppData\Local\Temp\ccbbAjQH.o
+ .data          0x0000000000000000        0x0 C:\Users\cfan\AppData\Local\Temp\ccbbAjQH.o
+ .bss           0x0000000000000000        0x0 C:\Users\cfan\AppData\Local\Temp\ccbbAjQH.o
+ .reginfo       0x0000000000000000       0x18 C:\Users\cfan\AppData\Local\Temp\ccbbAjQH.o
  .MIPS.abiflags
-                0x0000000000000000       0x18 C:\Users\cfan\AppData\Local\Temp\ccbwAwGR.o
+                0x0000000000000000       0x18 C:\Users\cfan\AppData\Local\Temp\ccbbAjQH.o
  .text          0x0000000000000000        0x0 c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
  .data          0x0000000000000000        0x0 c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
  .bss           0x0000000000000000        0x0 c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
@@ -2086,7 +2086,7 @@ END GROUP
  .debug_abbrev  0x00000000000008e6       0x2e c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
  .debug_abbrev  0x0000000000000914       0x2e c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
 
-.debug_line     0x0000000000000000     0x1326
+.debug_line     0x0000000000000000     0x132e
  *.elf(.debug_line)
  *(.debug_line)
  .debug_line    0x0000000000000000      0x136 ../objs/exceptions.o
@@ -2095,11 +2095,11 @@ END GROUP
  .debug_line    0x000000000000041d      0x1d1 ../objs/main.o
  .debug_line    0x00000000000005ee      0x1b2 ../objs/cips/clk/plib_clk.o
  .debug_line    0x00000000000007a0      0x361 ../objs/cips/evic/plib_evic.o
- .debug_line    0x0000000000000b01      0x2c4 ../objs/cips/gpio/plib_gpio.o
- .debug_line    0x0000000000000dc5      0x2e6 ../objs/cips/tmr1/plib_tmr1.o
- .debug_line    0x00000000000010ab      0x12d ../objs/startup/startup.o
- .debug_line    0x00000000000011d8       0xa5 c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
- .debug_line    0x000000000000127d       0xa9 c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
+ .debug_line    0x0000000000000b01      0x2cc ../objs/cips/gpio/plib_gpio.o
+ .debug_line    0x0000000000000dcd      0x2e6 ../objs/cips/tmr1/plib_tmr1.o
+ .debug_line    0x00000000000010b3      0x12d ../objs/startup/startup.o
+ .debug_line    0x00000000000011e0       0xa5 c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
+ .debug_line    0x0000000000001285       0xa9 c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
 
 .debug_frame    0x0000000000000000      0x454
  *.elf(.debug_frame)
@@ -2200,9 +2200,9 @@ END GROUP
  .gnu.attributes
                 0x0000000000000080       0x10 ../objs/startup/startup.o
  .gnu.attributes
-                0x0000000000000090       0x10 C:\Users\cfan\AppData\Local\Temp\cc4zuXVp.o
+                0x0000000000000090       0x10 C:\Users\cfan\AppData\Local\Temp\ccbTU2uq.o
  .gnu.attributes
-                0x00000000000000a0       0x10 C:\Users\cfan\AppData\Local\Temp\ccbwAwGR.o
+                0x00000000000000a0       0x10 C:\Users\cfan\AppData\Local\Temp\ccbbAjQH.o
  .gnu.attributes
                 0x00000000000000b0       0x10 c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
  .gnu.attributes
@@ -2274,8 +2274,8 @@ LOAD ../objs/cips/evic/plib_evic.o
 LOAD ../objs/cips/gpio/plib_gpio.o
 LOAD ../objs/cips/tmr1/plib_tmr1.o
 LOAD ../objs/startup/startup.o
-LOAD C:\Users\cfan\AppData\Local\Temp\cc4zuXVp.o
-LOAD C:\Users\cfan\AppData\Local\Temp\ccbwAwGR.o
+LOAD C:\Users\cfan\AppData\Local\Temp\ccbTU2uq.o
+LOAD C:\Users\cfan\AppData\Local\Temp\ccbbAjQH.o
 LOAD c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/fpu64\libgcc.a
 START GROUP
 LOAD c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a
@@ -2301,72 +2301,72 @@ LOAD stack
 .__vector_offset_BF810540_data
                 0x00000000bf810540       0xe8
  .__vector_offset_BF810540_data
-                0x00000000bf810540       0xe8 C:\Users\cfan\AppData\Local\Temp\ccbwAwGR.o
+                0x00000000bf810540       0xe8 C:\Users\cfan\AppData\Local\Temp\ccbbAjQH.o
 
 .__vector_offset_BF81079C_data
                 0x00000000bf81079c       0x64
  .__vector_offset_BF81079C_data
-                0x00000000bf81079c       0x64 C:\Users\cfan\AppData\Local\Temp\ccbwAwGR.o
+                0x00000000bf81079c       0x64 C:\Users\cfan\AppData\Local\Temp\ccbbAjQH.o
 
 .__vector_offset_BF810740_data
                 0x00000000bf810740       0x50
  .__vector_offset_BF810740_data
-                0x00000000bf810740       0x50 C:\Users\cfan\AppData\Local\Temp\ccbwAwGR.o
+                0x00000000bf810740       0x50 C:\Users\cfan\AppData\Local\Temp\ccbbAjQH.o
 
 .__vector_offset_BF81062C_data
                 0x00000000bf81062c       0x4c
  .__vector_offset_BF81062C_data
-                0x00000000bf81062c       0x4c C:\Users\cfan\AppData\Local\Temp\ccbwAwGR.o
+                0x00000000bf81062c       0x4c C:\Users\cfan\AppData\Local\Temp\ccbbAjQH.o
 
 .__vector_offset_BF8106F4_data
                 0x00000000bf8106f4       0x24
  .__vector_offset_BF8106F4_data
-                0x00000000bf8106f4       0x24 C:\Users\cfan\AppData\Local\Temp\ccbwAwGR.o
+                0x00000000bf8106f4       0x24 C:\Users\cfan\AppData\Local\Temp\ccbbAjQH.o
 
 .__vector_offset_BF81071C_data
                 0x00000000bf81071c       0x18
  .__vector_offset_BF81071C_data
-                0x00000000bf81071c       0x18 C:\Users\cfan\AppData\Local\Temp\ccbwAwGR.o
+                0x00000000bf81071c       0x18 C:\Users\cfan\AppData\Local\Temp\ccbbAjQH.o
 
 .__vector_offset_BF81080C_data
                 0x00000000bf81080c       0x18
  .__vector_offset_BF81080C_data
-                0x00000000bf81080c       0x18 C:\Users\cfan\AppData\Local\Temp\ccbwAwGR.o
+                0x00000000bf81080c       0x18 C:\Users\cfan\AppData\Local\Temp\ccbbAjQH.o
 
 .__vector_offset_BF810874_data
                 0x00000000bf810874       0x18
  .__vector_offset_BF810874_data
-                0x00000000bf810874       0x18 C:\Users\cfan\AppData\Local\Temp\ccbwAwGR.o
+                0x00000000bf810874       0x18 C:\Users\cfan\AppData\Local\Temp\ccbbAjQH.o
 
 .__vector_offset_BF8106D8_data
                 0x00000000bf8106d8       0x14
  .__vector_offset_BF8106D8_data
-                0x00000000bf8106d8       0x14 C:\Users\cfan\AppData\Local\Temp\ccbwAwGR.o
+                0x00000000bf8106d8       0x14 C:\Users\cfan\AppData\Local\Temp\ccbbAjQH.o
 
 .__vector_offset_BF810858_data
                 0x00000000bf810858       0x14
  .__vector_offset_BF810858_data
-                0x00000000bf810858       0x14 C:\Users\cfan\AppData\Local\Temp\ccbwAwGR.o
+                0x00000000bf810858       0x14 C:\Users\cfan\AppData\Local\Temp\ccbbAjQH.o
 
 .__vector_offset_BF810830_data
                 0x00000000bf810830        0xc
  .__vector_offset_BF810830_data
-                0x00000000bf810830        0xc C:\Users\cfan\AppData\Local\Temp\ccbwAwGR.o
+                0x00000000bf810830        0xc C:\Users\cfan\AppData\Local\Temp\ccbbAjQH.o
 
 .__vector_offset_BF810840_data
                 0x00000000bf810840        0xc
  .__vector_offset_BF810840_data
-                0x00000000bf810840        0xc C:\Users\cfan\AppData\Local\Temp\ccbwAwGR.o
+                0x00000000bf810840        0xc C:\Users\cfan\AppData\Local\Temp\ccbbAjQH.o
 
 .__vector_offset_BF810850_data
                 0x00000000bf810850        0x4
  .__vector_offset_BF810850_data
-                0x00000000bf810850        0x4 C:\Users\cfan\AppData\Local\Temp\ccbwAwGR.o
+                0x00000000bf810850        0x4 C:\Users\cfan\AppData\Local\Temp\ccbbAjQH.o
 
 .__vector_offset_BF810894_data
                 0x00000000bf810894        0x4
  .__vector_offset_BF810894_data
-                0x00000000bf810894        0x4 C:\Users\cfan\AppData\Local\Temp\ccbwAwGR.o
+                0x00000000bf810894        0x4 C:\Users\cfan\AppData\Local\Temp\ccbbAjQH.o
 
 .config_BFC0FFC0.__config_BFC0FFC0
                 0x00000000bfc0ffc0        0x4
@@ -2443,18 +2443,18 @@ LOAD stack
                 0x000000009d0009f4       0xbc c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_init_tlb_ebi_sqi.o)
                 0x000000009d0009f4                __pic32_tlb_init_ebi_sqi
 
-.text           0x000000009d000ab0       0x7c
- .text          0x000000009d000ab0       0x7c c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_data_init_core.o)
-                0x000000009d000ab0                __dinit_copy_val_data
-                0x000000009d000ab0                __dinit_decompress
-                0x000000009d000ab0                __dinit_copy_emb
-                0x000000009d000ab8                __pic32_data_init
-
 .text.GPIO_Initialize
-                0x000000009d000b2c       0x78
+                0x000000009d000ab0       0x80
  .text.GPIO_Initialize
-                0x000000009d000b2c       0x78 ../objs/cips/gpio/plib_gpio.o
-                0x000000009d000b2c                GPIO_Initialize
+                0x000000009d000ab0       0x80 ../objs/cips/gpio/plib_gpio.o
+                0x000000009d000ab0                GPIO_Initialize
+
+.text           0x000000009d000b30       0x7c
+ .text          0x000000009d000b30       0x7c c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_data_init_core.o)
+                0x000000009d000b30                __dinit_copy_val_data
+                0x000000009d000b30                __dinit_decompress
+                0x000000009d000b30                __dinit_copy_emb
+                0x000000009d000b38                __pic32_data_init
 
 .text.SYS_Initialize
                 0x000000009d000110       0x70
@@ -2467,96 +2467,96 @@ LOAD stack
                 0x000000009d000190                main
 
 .text.main_entry
-                0x000000009d000ba4       0x54
+                0x000000009d000bac       0x54
  .text.main_entry
-                0x000000009d000ba4       0x54 ../objs/startup/startup.o
-                0x000000009d000bd8                __crt0_exit
+                0x000000009d000bac       0x54 ../objs/startup/startup.o
+                0x000000009d000be0                __crt0_exit
 
 .text.TIMER_1_InterruptHandler
-                0x000000009d000bf8       0x48
+                0x000000009d000c00       0x48
  .text.TIMER_1_InterruptHandler
-                0x000000009d000bf8       0x48 ../objs/cips/tmr1/plib_tmr1.o
-                0x000000009d000bf8                TIMER_1_InterruptHandler
+                0x000000009d000c00       0x48 ../objs/cips/tmr1/plib_tmr1.o
+                0x000000009d000c00                TIMER_1_InterruptHandler
 
 .text.EVIC_Initialize
-                0x000000009d000c40       0x44
+                0x000000009d000c48       0x44
  .text.EVIC_Initialize
-                0x000000009d000c40       0x44 ../objs/cips/evic/plib_evic.o
-                0x000000009d000c40                EVIC_Initialize
+                0x000000009d000c48       0x44 ../objs/cips/evic/plib_evic.o
+                0x000000009d000c48                EVIC_Initialize
 
 .text.TMR1_Initialize
-                0x000000009d000c84       0x3c
+                0x000000009d000c8c       0x3c
  .text.TMR1_Initialize
-                0x000000009d000c84       0x3c ../objs/cips/tmr1/plib_tmr1.o
-                0x000000009d000c84                TMR1_Initialize
+                0x000000009d000c8c       0x3c ../objs/cips/tmr1/plib_tmr1.o
+                0x000000009d000c8c                TMR1_Initialize
 
-.text.T1        0x000000009d000cc0       0x20
- .text.T1       0x000000009d000cc0       0x20 ../objs/main.o
-                0x000000009d000cc0                T1
+.text.T1        0x000000009d000cc8       0x20
+ .text.T1       0x000000009d000cc8       0x20 ../objs/main.o
+                0x000000009d000cc8                T1
 
-.text           0x000000009d000ce0       0x20
- .text          0x000000009d000ce0       0x20 c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_data_init_copy.o)
-                0x000000009d000ce0                __dinit_copy
-                0x000000009d000ce0                __dinit_copy_needed
+.text           0x000000009d000ce8       0x20
+ .text          0x000000009d000ce8       0x20 c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_data_init_copy.o)
+                0x000000009d000ce8                __dinit_copy
+                0x000000009d000ce8                __dinit_copy_needed
 
 .MIPS.abiflags  0x000000009d0001e8       0x18
  .MIPS.abiflags
                 0x000000009d0001e8       0x18 ../objs/exceptions.o
 
 .text._general_exception_handler
-                0x000000009d000d00       0x18
+                0x000000009d000d08       0x18
  .text._general_exception_handler
-                0x000000009d000d00       0x18 ../objs/exceptions.o
-                0x000000009d000d00                _general_exception_handler
+                0x000000009d000d08       0x18 ../objs/exceptions.o
+                0x000000009d000d08                _general_exception_handler
 
 .text._bootstrap_exception_handler
-                0x000000009d000d18       0x18
+                0x000000009d000d20       0x18
  .text._bootstrap_exception_handler
-                0x000000009d000d18       0x18 ../objs/exceptions.o
-                0x000000009d000d18                _bootstrap_exception_handler
+                0x000000009d000d20       0x18 ../objs/exceptions.o
+                0x000000009d000d20                _bootstrap_exception_handler
 
 .text._cache_err_exception_handler
-                0x000000009d000d30       0x18
+                0x000000009d000d38       0x18
  .text._cache_err_exception_handler
-                0x000000009d000d30       0x18 ../objs/exceptions.o
-                0x000000009d000d30                _cache_err_exception_handler
+                0x000000009d000d38       0x18 ../objs/exceptions.o
+                0x000000009d000d38                _cache_err_exception_handler
 
 .text._simple_tlb_refill_exception_handler
-                0x000000009d000d48       0x18
+                0x000000009d000d50       0x18
  .text._simple_tlb_refill_exception_handler
-                0x000000009d000d48       0x18 ../objs/exceptions.o
-                0x000000009d000d48                _simple_tlb_refill_exception_handler
+                0x000000009d000d50       0x18 ../objs/exceptions.o
+                0x000000009d000d50                _simple_tlb_refill_exception_handler
 
-.text           0x000000009d000d60       0x30
- .text          0x000000009d000d60       0x18 c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-nmi-handler.o)
-                0x000000009d000d60                _nmi_handler
- .text          0x000000009d000d78       0x18 c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_data_init_clear.o)
-                0x000000009d000d78                __dinit_clear_needed
-                0x000000009d000d78                __dinit_clear
+.text           0x000000009d000d68       0x30
+ .text          0x000000009d000d68       0x18 c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-nmi-handler.o)
+                0x000000009d000d68                _nmi_handler
+ .text          0x000000009d000d80       0x18 c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_data_init_clear.o)
+                0x000000009d000d80                __dinit_clear_needed
+                0x000000009d000d80                __dinit_clear
 
 .text.TMR1_Start
-                0x000000009d000d90       0x14
+                0x000000009d000d98       0x14
  .text.TMR1_Start
-                0x000000009d000d90       0x14 ../objs/cips/tmr1/plib_tmr1.o
-                0x000000009d000d90                TMR1_Start
+                0x000000009d000d98       0x14 ../objs/cips/tmr1/plib_tmr1.o
+                0x000000009d000d98                TMR1_Start
 
 .text.TMR1_CallbackRegister
-                0x000000009d000da4       0x14
+                0x000000009d000dac       0x14
  .text.TMR1_CallbackRegister
-                0x000000009d000da4       0x14 ../objs/cips/tmr1/plib_tmr1.o
-                0x000000009d000da4                TMR1_CallbackRegister
+                0x000000009d000dac       0x14 ../objs/cips/tmr1/plib_tmr1.o
+                0x000000009d000dac                TMR1_CallbackRegister
 
-.rodata         0x000000009d000db8       0x14
- .rodata        0x000000009d000db8       0x14 c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_data_init_core.o)
+.rodata         0x000000009d000dc0       0x14
+ .rodata        0x000000009d000dc0       0x14 c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(pic32_data_init_core.o)
 
 .text._on_reset
-                0x000000009d000dcc        0x8
+                0x000000009d000dd4        0x8
  .text._on_reset
-                0x000000009d000dcc        0x8 c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
-                0x000000009d000dcc                _on_reset
+                0x000000009d000dd4        0x8 c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-reset.o)
+                0x000000009d000dd4                _on_reset
 
 .text._on_bootstrap
-                0x000000009d000dd4        0x8
+                0x000000009d000ddc        0x8
  .text._on_bootstrap
-                0x000000009d000dd4        0x8 c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
-                0x000000009d000dd4                _on_bootstrap
+                0x000000009d000ddc        0x8 c:/program files/microchip/xc32/v4.60/bin/bin/../../lib/gcc/pic32mx/8.3.1/../../../../pic32mx/lib/fpu64\libpic32.a(default-on-bootstrap.o)
+                0x000000009d000ddc                _on_bootstrap
