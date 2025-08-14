@@ -52,6 +52,7 @@
 #include "cips/gpio/plib_gpio.h"
 #include "cips/evic/plib_evic.h"
 #include "cips/tmr1/plib_tmr1.h"
+#include "cips/uart/plib_uart3.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility

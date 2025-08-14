@@ -1,11 +1,9 @@
-../objs/cips/gpio/plib_gpio.o: ../srcs/cips/gpio/plib_gpio.c \
- ../incs/cips/gpio/plib_gpio.h ../incs/device.h \
- ../incs/toolchain_specifics.h ../incs/interrupts.h
-
-../incs/cips/gpio/plib_gpio.h:
+../objs/cips/uart/plib_uart3.o: ../srcs/cips/uart/plib_uart3.c \
+ ../incs/device.h ../incs/toolchain_specifics.h \
+ ../incs/cips/uart/plib_uart3.h
 
 ../incs/device.h:
 
 ../incs/toolchain_specifics.h:
 
-../incs/interrupts.h:
+../incs/cips/uart/plib_uart3.h:

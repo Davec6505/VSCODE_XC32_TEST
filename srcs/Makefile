@@ -96,13 +96,21 @@ $(BIN_DIR)/$(MODULE): $(OBJS)
 # Compile all source files to object files
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@echo "Compiling $< to $@"
+ifeq ($(OS),Windows_NT)
+	@if not exist "$(subst /,\,$(dir $@))" mkdir "$(subst /,\,$(dir $@))"
+else
 	@mkdir -p $(dir $@)
-	$(DIRECT_OBJ) -c $< -o $@
+endif
+	$(DIRECT_OBJ) $< -o $@
 	@echo "Object file created: $@"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.S
 	@echo "Compiling assembly file $< to object file $@"
+ifeq ($(OS),Windows_NT)
+	@if not exist "$(subst /,\,$(dir $@))" mkdir "$(subst /,\,$(dir $@))"
+else
 	@mkdir -p $(dir $@)
+endif
 	$(CC) $(MCU) $(DIRECT_ASM) -o $@ $<
 	@echo "Object file created: $@"
 
@@ -123,6 +131,16 @@ SRC_SUBDIRS := $(sort $(filter-out startup/,$(SRC_DIRS:$(SRC_DIR)/%=%)))
 
 build_dir: 
 	@echo "Creating build base directories if they do not exist"
+ifeq ($(OS),Windows_NT)
+	@if not exist "$(OBJ_DIR)" mkdir "$(OBJ_DIR)"
+	@if not exist "$(BIN_DIR)" mkdir "$(BIN_DIR)"
+	@if not exist "$(SRC_DIR)" mkdir "$(SRC_DIR)"
+	@if not exist "$(INC_DIR)" mkdir "$(INC_DIR)"
+	@if not exist "$(OUT_DIR)" mkdir "$(OUT_DIR)"
+	@echo "Creating subdirectories in OBJ_DIR and INC_DIR based on SRC_DIR structure (excluding startup from incs)"
+	@if not exist "$(OBJ_DIR)\startup" mkdir "$(OBJ_DIR)\startup"
+	@echo "Created: $(OBJ_DIR)/startup (object files only)"
+else
 	@mkdir -p $(OBJ_DIR) $(BIN_DIR) $(SRC_DIR) $(INC_DIR) $(OUT_DIR)
 	@echo "Creating subdirectories in OBJ_DIR and INC_DIR based on SRC_DIR structure (excluding startup from incs)"
 	@mkdir -p $(OBJ_DIR)/startup
@@ -130,6 +148,7 @@ build_dir:
 	@$(foreach subdir,$(SRC_SUBDIRS),mkdir -p $(OBJ_DIR)/$(subdir) $(INC_DIR)/$(subdir) && echo "Created: $(OBJ_DIR)/$(subdir) and $(INC_DIR)/$(subdir)" &&) true
 	@echo "Moving header files from src subdirectories to corresponding inc subdirectories"
 	@$(foreach subdir,$(SRC_SUBDIRS),$(foreach header,$(wildcard $(SRC_DIR)/$(subdir)*.h),mv $(header) $(INC_DIR)/$(subdir) && echo "Moved: $(header) -> $(INC_DIR)/$(subdir)" &&)) true
+endif
 	@echo "Build directories created successfully"
 
 # Display the source files, object files, and include directories
@@ -160,22 +179,18 @@ endif
 
 clean:
 	@echo "Cleaning up object files and binaries"
-	@if [ "$(OS)" = "Windows_NT" ]; then \
-	  powershell -Command "try { Remove-Item -Recurse -Force $(BIN_DIR)\* -ErrorAction Stop } catch {}"; \
-	  powershell -Command "try { Remove-Item -Recurse -Force $(OBJ_DIR)\* -ErrorAction Stop } catch {}"; \
-	  powershell -Command "try { Remove-Item -Recurse -Force $(OUT_DIR)\* -ErrorAction Stop } catch {}"; \
-	else \
-	  rm -rf $(BIN_DIR)/* 2>/dev/null || true; \
-	  rm -rf $(OBJ_DIR)/* 2>/dev/null || true; \
-	  rm -rf $(OUT_DIR)/* 2>/dev/null || true; \
-	fi
+ifeq ($(OS),Windows_NT)
+	@if exist "$(BIN_DIR)\*" del /q "$(BIN_DIR)\*" >nul 2>&1
+	@if exist "$(OBJ_DIR)\*" rmdir /s /q "$(OBJ_DIR)" >nul 2>&1 && mkdir "$(OBJ_DIR)" >nul 2>&1
+	@if exist "$(OUT_DIR)\*" del /q "$(OUT_DIR)\*" >nul 2>&1
+else
+	@rm -rf $(BIN_DIR)/* $(OBJ_DIR)/* $(OUT_DIR)/* 2>/dev/null || true
+endif
 	@echo "Clean complete."
 
 
 define clear_build_dir
-	-@rm -rf $(BIN_DIR)/* 2>/dev/null || true
-	-@rm -rf $(OBJ_DIR)/* 2>/dev/null || true
-	-@rm -rf $(OUT_DIR)/* 2>/dev/null || true
+	-@rm -rf $(BIN_DIR)/* $(OBJ_DIR)/* $(OUT_DIR)/* 2>/dev/null || true
 endef
 
 

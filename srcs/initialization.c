@@ -180,12 +180,11 @@ void SYS_Initialize ( void* data )
     PRECONbits.PFMWS = 3;
     CFGCONbits.ECCCON = 3;
 
-
-
-	  GPIO_Initialize();
+    GPIO_Initialize();
 
     TMR1_Initialize();
-
+    
+    UART3_Initialize();
 
     EVIC_Initialize();
 
