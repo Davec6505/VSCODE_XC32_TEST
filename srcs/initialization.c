@@ -180,16 +180,20 @@ void SYS_Initialize ( void* data )
     PRECONbits.PFMWS = 3;
     CFGCONbits.ECCCON = 3;
 
-    GPIO_Initialize();
+
+
+	GPIO_Initialize();
+
+	UART2_Initialize();
 
     TMR1_Initialize();
-    
-    UART3_Initialize();
+
 
     EVIC_Initialize();
 
 	/* Enable global interrupts */
     (void)__builtin_enable_interrupts();
+
 
 
     /* MISRAC 2012 deviation block end */

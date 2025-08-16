@@ -55,7 +55,7 @@
 // *****************************************************************************
 
 #include "device.h"
-#include "cips/clk/plib_clk.h"
+#include "plib_clk.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -97,7 +97,7 @@ void CLK_Initialize( void )
     PMD2 = 0x3U;
     PMD3 = 0x1ff01ffU;
     PMD4 = 0x1feU;
-    PMD5 = 0x301f3f3fU;
+    PMD5 = 0x301f3f3dU;
     PMD6 = 0x10830001U;
     PMD7 = 0x500000U;
 
@@ -109,16 +109,6 @@ void CLK_Initialize( void )
     /* Peripheral Bus 3 is by default enabled, set its divisor */
     PB3DIVbits.PBDIV = 3;
 
-
-    /* Set up Reference Clock 1 */
-    /* REFO1CON register */
-    /* ROSEL =  SYSCLK */
-    /* DIVSWEN = 1 */
-    /* RODIV = 10000 */
-    REFO1CON = 0x27100200;
-
-    /* Enable oscillator (ON bit) and Enable Output (OE bit) */
-    REFO1CONSET = 0x00001000U | 0x00008000U;
 
       
 

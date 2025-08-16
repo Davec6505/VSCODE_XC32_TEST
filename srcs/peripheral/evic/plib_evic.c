@@ -41,7 +41,7 @@
 // DOM-IGNORE-END
 
 #include "device.h"
-#include "cips/evic/plib_evic.h"
+#include "plib_evic.h"
 #include "interrupts.h"
 
 
@@ -56,7 +56,10 @@ void EVIC_Initialize( void )
     INTCONSET = _INTCON_MVEC_MASK;
 
     /* Set up priority and subpriority of enabled interrupts */
-    IPC1SET = 0x10U | 0x0U;  /* TIMER_1:  Priority 4 / Subpriority 0 */
+    IPC1SET = 0x14U | 0x0U;  /* TIMER_1:  Priority 5 / Subpriority 0 */
+    IPC36SET = 0x1800U | 0x200U;  /* UART2_FAULT:  Priority 6 / Subpriority 2 */
+    IPC36SET = 0x180000U | 0x0U;  /* UART2_RX:  Priority 6 / Subpriority 0 */
+    IPC36SET = 0x18000000U | 0x1000000U;  /* UART2_TX:  Priority 6 / Subpriority 1 */
 
 
 

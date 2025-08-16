@@ -57,6 +57,9 @@
 // *****************************************************************************
 // *****************************************************************************
 void TIMER_1_InterruptHandler( void );
+void UART2_FAULT_InterruptHandler( void );
+void UART2_RX_InterruptHandler( void );
+void UART2_TX_InterruptHandler( void );
 
 
 

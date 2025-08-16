@@ -82,25 +82,25 @@
 #define LED1_GetLatch()          ((LATB >> 9) & 0x1U)
 #define LED1_PIN                  GPIO_PIN_RB9
 
-/*** Macros for SW2 pin ***/
-#define SW2_Set()               (LATBSET = (1U<<10))
-#define SW2_Clear()             (LATBCLR = (1U<<10))
-#define SW2_Toggle()            (LATBINV= (1U<<10))
-#define SW2_OutputEnable()      (TRISBCLR = (1U<<10))
-#define SW2_InputEnable()       (TRISBSET = (1U<<10))
-#define SW2_Get()               ((PORTB >> 10) & 0x1U)
-#define SW2_GetLatch()          ((LATB >> 10) & 0x1U)
-#define SW2_PIN                  GPIO_PIN_RB10
-
 /*** Macros for LED2 pin ***/
-#define LED2_Set()               (LATBSET = (1U<<11))
-#define LED2_Clear()             (LATBCLR = (1U<<11))
-#define LED2_Toggle()            (LATBINV= (1U<<11))
-#define LED2_OutputEnable()      (TRISBCLR = (1U<<11))
-#define LED2_InputEnable()       (TRISBSET = (1U<<11))
-#define LED2_Get()               ((PORTB >> 11) & 0x1U)
-#define LED2_GetLatch()          ((LATB >> 11) & 0x1U)
-#define LED2_PIN                  GPIO_PIN_RB11
+#define LED2_Set()               (LATBSET = (1U<<10))
+#define LED2_Clear()             (LATBCLR = (1U<<10))
+#define LED2_Toggle()            (LATBINV= (1U<<10))
+#define LED2_OutputEnable()      (TRISBCLR = (1U<<10))
+#define LED2_InputEnable()       (TRISBSET = (1U<<10))
+#define LED2_Get()               ((PORTB >> 10) & 0x1U)
+#define LED2_GetLatch()          ((LATB >> 10) & 0x1U)
+#define LED2_PIN                  GPIO_PIN_RB10
+
+/*** Macros for SW2 pin ***/
+#define SW2_Set()               (LATBSET = (1U<<11))
+#define SW2_Clear()             (LATBCLR = (1U<<11))
+#define SW2_Toggle()            (LATBINV= (1U<<11))
+#define SW2_OutputEnable()      (TRISBCLR = (1U<<11))
+#define SW2_InputEnable()       (TRISBSET = (1U<<11))
+#define SW2_Get()               ((PORTB >> 11) & 0x1U)
+#define SW2_GetLatch()          ((LATB >> 11) & 0x1U)
+#define SW2_PIN                  GPIO_PIN_RB11
 
 
 // *****************************************************************************

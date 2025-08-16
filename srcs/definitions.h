@@ -1,24 +1,18 @@
 /*******************************************************************************
- System Interrupts File
-
-  Company:
-    Microchip Technology Inc.
+  System Definitions
 
   File Name:
-    interrupt.c
+    definitions.h
 
   Summary:
-    Interrupt vectors mapping
+    project system definitions.
 
   Description:
-    This file maps all the interrupt vectors to their corresponding
-    implementations. If a particular module interrupt is used, then its ISR
-    definition can be found in corresponding PLIB source file. If a module
-    interrupt is not used, then its ISR implementation is mapped to dummy
-    handler.
+    This file contains the system-wide prototypes and definitions for a project.
+
  *******************************************************************************/
 
-// DOM-IGNORE-BEGIN
+//DOM-IGNORE-BEGIN
 /*******************************************************************************
 * Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries.
 *
@@ -41,65 +35,109 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *******************************************************************************/
-// DOM-IGNORE-END
+//DOM-IGNORE-END
+
+#ifndef DEFINITIONS_H
+#define DEFINITIONS_H
 
 // *****************************************************************************
 // *****************************************************************************
 // Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
-#include "interrupts.h"
-#include "definitions.h"
+#include <stdint.h>
+#include <stddef.h>
+#include <stdbool.h>
+#include "peripheral/uart/plib_uart2.h"
+#include "peripheral/clk/plib_clk.h"
+#include "peripheral/gpio/plib_gpio.h"
+#include "peripheral/evic/plib_evic.h"
+#include "peripheral/tmr1/plib_tmr1.h"
+
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
+
+extern "C" {
+
+#endif
+// DOM-IGNORE-END
+
+/* Device Information */
+#define DEVICE_NAME          "PIC32MZ1024EFH064"
+#define DEVICE_ARCH          "MIPS"
+#define DEVICE_FAMILY        "PIC32MZEF"
+#define DEVICE_SERIES        "PIC32MZ"
+
+/* CPU clock frequency */
+#define CPU_CLOCK_FREQUENCY 200000000U
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: System Functions
+// *****************************************************************************
+// *****************************************************************************
+
+// *****************************************************************************
+/* System Initialization Function
+
+  Function:
+    void SYS_Initialize( void *data )
+
+  Summary:
+    Function that initializes all modules in the system.
+
+  Description:
+    This function initializes all modules in the system, including any drivers,
+    services, middleware, and applications.
+
+  Precondition:
+    None.
+
+  Parameters:
+    data            - Pointer to the data structure containing any data
+                      necessary to initialize the module. This pointer may
+                      be null if no data is required and default initialization
+                      is to be used.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    SYS_Initialize ( NULL );
+
+    while ( true )
+    {
+        SYS_Tasks ( );
+    }
+    </code>
+
+  Remarks:
+    This function will only be called once, after system reset.
+*/
+
+void SYS_Initialize( void *data );
+
+/* Nullify SYS_Tasks() if only PLIBs are used. */
+#define     SYS_Tasks()
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: extern declarations
+// *****************************************************************************
+// *****************************************************************************
 
 
 
-// *****************************************************************************
-// *****************************************************************************
-// Section: System Interrupt Vector Functions
-// *****************************************************************************
-// *****************************************************************************
 
-
-/* All the handlers are defined here.  Each will call its PLIB-specific function. */
-// *****************************************************************************
-// *****************************************************************************
-// Section: System Interrupt Vector declarations
-// *****************************************************************************
-// *****************************************************************************
-void TIMER_1_Handler (void);
-void UART2_FAULT_Handler (void);
-void UART2_RX_Handler (void);
-void UART2_TX_Handler (void);
-
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: System Interrupt Vector definitions
-// *****************************************************************************
-// *****************************************************************************
-void __attribute__((used)) __ISR(_TIMER_1_VECTOR, ipl5SRS) TIMER_1_Handler (void)
-{
-    TIMER_1_InterruptHandler();
+//DOM-IGNORE-BEGIN
+#ifdef __cplusplus
 }
+#endif
+//DOM-IGNORE-END
 
-void __attribute__((used)) __ISR(_UART2_FAULT_VECTOR, ipl6SRS) UART2_FAULT_Handler (void)
-{
-    UART2_FAULT_InterruptHandler();
-}
-
-void __attribute__((used)) __ISR(_UART2_RX_VECTOR, ipl6SRS) UART2_RX_Handler (void)
-{
-    UART2_RX_InterruptHandler();
-}
-
-void __attribute__((used)) __ISR(_UART2_TX_VECTOR, ipl6SRS) UART2_TX_Handler (void)
-{
-    UART2_TX_InterruptHandler();
-}
-
-
-
-
+#endif /* DEFINITIONS_H */
 /*******************************************************************************
  End of File
 */
+

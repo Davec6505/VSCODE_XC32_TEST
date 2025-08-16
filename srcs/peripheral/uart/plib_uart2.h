@@ -1,23 +1,20 @@
 /*******************************************************************************
-  TMR1 Peripheral Library Interface Source File
+  UART2 PLIB
 
-  Company
+  Company:
     Microchip Technology Inc.
 
-  File Name
-    plib_tmr1.c
+  File Name:
+    plib_uart2.h
 
-  Summary
-    TMR1 peripheral library source file.
+  Summary:
+    UART2 PLIB Header File
 
-  Description
-    This file implements the interface to the TMR1 peripheral library.  This
-    library provides access to and control of the associated peripheral
-    instance.
+  Description:
+    None
 
 *******************************************************************************/
 
-// DOM-IGNORE-BEGIN
 /*******************************************************************************
 * Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
 *
@@ -40,108 +37,70 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
+
+#ifndef PLIB_UART2_H
+#define PLIB_UART2_H
+
+#include <stddef.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include "device.h"
+#include "plib_uart_common.h"
+
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
+
+    extern "C" {
+
+#endif
 // DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Included Files
+// Section: Interface
 // *****************************************************************************
 // *****************************************************************************
 
-#include "device.h"
-#include "cips/tmr1/plib_tmr1.h"
-#include "interrupts.h"
+#define UART2_FrequencyGet()    (uint32_t)(50000000UL)
 
-static volatile TMR1_TIMER_OBJECT tmr1Obj;
+/****************************** UART2 API *********************************/
 
-void TMR1_Initialize(void)
-{
-    /* Disable Timer */
-    T1CONCLR = _T1CON_ON_MASK;
+void UART2_Initialize( void );
 
-    /*
-    SIDL = 0
-    TWDIS = 0
-    TGATE = 0
-    TCKPS = 1
-    TSYNC = 0
-    TCS = 0
-    */
-    T1CONSET = 0x10;
+bool UART2_SerialSetup( UART_SERIAL_SETUP *setup, uint32_t srcClkFreq );
 
-    /* Clear counter */
-    TMR1 = 0x0;
+bool UART2_AutoBaudQuery( void );
 
-    /*Set period */
-    PR1 = 6248;
+void UART2_AutoBaudSet( bool enable );
 
-    /* Setup TMR1 Interrupt */
-    TMR1_InterruptEnable();  /* Enable interrupt on the way out */
-}
+bool UART2_Write( void *buffer, const size_t size );
 
+bool UART2_Read( void *buffer, const size_t size );
 
-void TMR1_Start (void)
-{
-    T1CONSET = _T1CON_ON_MASK;
-}
+UART_ERROR UART2_ErrorGet( void );
 
+bool UART2_ReadIsBusy( void );
 
-void TMR1_Stop (void)
-{
-    T1CONCLR = _T1CON_ON_MASK;
-}
+size_t UART2_ReadCountGet( void );
 
+bool UART2_ReadAbort(void);
 
-void TMR1_PeriodSet(uint16_t period)
-{
-    PR1 = period;
-}
+bool UART2_WriteIsBusy( void );
 
+size_t UART2_WriteCountGet( void );
 
-uint16_t TMR1_PeriodGet(void)
-{
-    return (uint16_t)PR1;
-}
+void UART2_WriteCallbackRegister( UART_CALLBACK callback, uintptr_t context );
 
+void UART2_ReadCallbackRegister( UART_CALLBACK callback, uintptr_t context );
 
-uint16_t TMR1_CounterGet(void)
-{
-    return((uint16_t)TMR1);
-}
+bool UART2_TransmitComplete( void );
 
-uint32_t TMR1_FrequencyGet(void)
-{
-    return (6250000);
-}
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
 
-void __attribute__((used)) TIMER_1_InterruptHandler (void)
-{
-    uint32_t status = IFS0bits.T1IF;
-    IFS0CLR = _IFS0_T1IF_MASK;
-
-    if((tmr1Obj.callback_fn != NULL))
-    {
-        uintptr_t context = tmr1Obj.context;
-        tmr1Obj.callback_fn(status, context);
     }
-}
 
+#endif
+// DOM-IGNORE-END
 
-void TMR1_InterruptEnable(void)
-{
-    IEC0SET = _IEC0_T1IE_MASK;
-}
-
-
-void TMR1_InterruptDisable(void)
-{
-    IEC0CLR = _IEC0_T1IE_MASK;
-}
-
-
-void TMR1_CallbackRegister( TMR1_CALLBACK callback_fn, uintptr_t context )
-{
-    /* - Save callback_fn and context in local memory */
-    tmr1Obj.callback_fn = callback_fn;
-    tmr1Obj.context = context;
-}
+#endif // PLIB_UART2_H
