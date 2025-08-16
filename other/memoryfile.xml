@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<project>                                  
+  <executable name="../bins/VS_XC32_CNC">                 
+    <memory name="program">                 
+      <units>bytes</units>                 
+      <length>1049728</length>                 
+      <used>6912</used>                     
+      <free>1042816</free>                     
+    </memory>                              
+    <memory name="data">              
+      <units>bytes</units>                 
+      <length>524288</length>                 
+      <used>108</used>                     
+      <free>524180</free>                     
+    </memory>                              
+  </executable>                            
+</project>                                 

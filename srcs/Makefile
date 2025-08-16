@@ -3,6 +3,29 @@
 DFP_DIR := $(DFP)
 DFP_INCLUDE := $(DFP)/include
 
+# Helper variables for cross-platform compatibility
+space := $(empty) $(empty)
+comma := ,
+
+# Detect operating system for cross-platform compatibility
+ifeq ($(OS),Windows_NT)
+    detected_OS := Windows
+    MKDIR = if not exist "$(subst /,\,$(1))" mkdir "$(subst /,\,$(1))"
+    RMDIR = if exist "$(subst /,\,$(1))" rmdir /s /q "$(subst /,\,$(1))"
+    RM = if exist "$(subst /,\,$(1))" del /q "$(subst /,\,$(1))"
+    MOVE = if exist "$(subst /,\,$(1))" move "$(subst /,\,$(1))" "$(subst /,\,$(2))"
+    PATH_SEP = \\
+    NULL_DEVICE = nul
+else
+    detected_OS := $(shell uname -s)
+    MKDIR = mkdir -p $(1)
+    RMDIR = rm -rf $(1)
+    RM = rm -f $(1)
+    MOVE = if [ -f "$(1)" ]; then mv "$(1)" "$(2)"; fi
+    PATH_SEP = /
+    NULL_DEVICE = /dev/null
+endif
+
 # Project directories expected in the project.
 # These directories are created if they do not exist when "make build_dir" is run.
 # The directories are used to store object files, binaries, source files, include files, and other files.
@@ -65,10 +88,15 @@ endif
 
 
 # Assign all Include directories dynamically, first run "make build_dir" from terminal.
-INCS := -I"$(INC_DIR)" -I"$(DFP_INCLUDE)"
-#INCS := $(foreach d,$(shell dir /s /b /ad $(INC_DIR) 2>nul),-I$d) $(foreach d,$(INC_DIR),-I$d)
-#INCS := $(foreach d,$(shell find $(INC_DIR) -type d),-I$d)
-#INCS +=   -I$(DFP_INCLUDE)
+# Get all directories under INC_DIR recursively (up to 4 levels deep)
+define get_inc_dirs
+$(sort $(dir $(wildcard $(1)/*/)) $(dir $(wildcard $(1)/*/*/)) $(dir $(wildcard $(1)/*/*/*/)) $(dir $(wildcard $(1)/*/*/*/*/)))
+endef
+
+INC_SUBDIRS := $(call get_inc_dirs,$(INC_DIR))
+# Remove trailing slashes and add -I prefix for each directory
+INC_FLAGS := $(foreach d,$(patsubst %/,%,$(INC_SUBDIRS)),-I"$(d)")
+INCS := -I"$(INC_DIR)" $(INC_FLAGS) -I"$(DFP_INCLUDE)"
 
 
 #Direct the compiler outputs for .o files from .c or .cpp code
@@ -96,27 +124,30 @@ $(BIN_DIR)/$(MODULE): $(OBJS)
 # Compile all source files to object files
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@echo "Compiling $< to $@"
-ifeq ($(OS),Windows_NT)
-	@if not exist "$(subst /,\,$(dir $@))" mkdir "$(subst /,\,$(dir $@))"
-else
-	@mkdir -p $(dir $@)
-endif
+	@$(call MKDIR,$(dir $@))
 	$(DIRECT_OBJ) $< -o $@
 	@echo "Object file created: $@"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.S
 	@echo "Compiling assembly file $< to object file $@"
-ifeq ($(OS),Windows_NT)
-	@if not exist "$(subst /,\,$(dir $@))" mkdir "$(subst /,\,$(dir $@))"
-else
-	@mkdir -p $(dir $@)
-endif
+	@$(call MKDIR,$(dir $@))
 	$(CC) $(MCU) $(DIRECT_ASM) -o $@ $<
 	@echo "Object file created: $@"
 
 
 
-.PHONY: clean build_dir debug help
+.PHONY: clean build_dir debug help platform
+
+# Show platform-specific configuration
+platform:
+	@echo "Cross-platform build configuration:"
+	@echo "  Detected OS: $(detected_OS)"
+	@echo "  Path separator: $(PATH_SEP)"
+	@echo "  Null device: $(NULL_DEVICE)"
+	@echo "  MKDIR command: $(value MKDIR)"
+	@echo "  RMDIR command: $(value RMDIR)"
+	@echo "  RM command: $(value RM)"
+	@echo "  MOVE command: $(value MOVE)"
 
 # Create the build directories if they do not exist
 # This target is used to create the necessary directories for the build process.
@@ -125,42 +156,43 @@ endif
 # This is useful for organizing the build output and include files.
 # To run this target, use: make build_dir
 # Get all directories under SRC_DIR dynamically (similar to how we get source files)
-SRC_DIRS := $(sort $(dir $(wildcard $(SRC_DIR)/*/)) $(dir $(wildcard $(SRC_DIR)/*/*/)) $(dir $(wildcard $(SRC_DIR)/*/*/*/)))
-# Filter out startup directory from automatic creation
+SRC_DIRS := $(sort $(dir $(wildcard $(SRC_DIR)/*/)) $(dir $(wildcard $(SRC_DIR)/*/*/)) $(dir $(wildcard $(SRC_DIR)/*/*/*/)) $(dir $(wildcard $(SRC_DIR)/*/*/*/*/)))
+# Filter out startup directory from automatic creation and convert to relative paths
 SRC_SUBDIRS := $(sort $(filter-out startup/,$(SRC_DIRS:$(SRC_DIR)/%=%)))
 
 build_dir: 
-	@echo "Creating build base directories if they do not exist"
-ifeq ($(OS),Windows_NT)
-	@if not exist "$(OBJ_DIR)" mkdir "$(OBJ_DIR)"
-	@if not exist "$(BIN_DIR)" mkdir "$(BIN_DIR)"
-	@if not exist "$(SRC_DIR)" mkdir "$(SRC_DIR)"
-	@if not exist "$(INC_DIR)" mkdir "$(INC_DIR)"
-	@if not exist "$(OUT_DIR)" mkdir "$(OUT_DIR)"
-	@echo "Creating subdirectories in OBJ_DIR and INC_DIR based on SRC_DIR structure (excluding startup from incs)"
-	@if not exist "$(OBJ_DIR)\startup" mkdir "$(OBJ_DIR)\startup"
-	@echo "Created: $(OBJ_DIR)/startup (object files only)"
-else
-	@mkdir -p $(OBJ_DIR) $(BIN_DIR) $(SRC_DIR) $(INC_DIR) $(OUT_DIR)
-	@echo "Creating subdirectories in OBJ_DIR and INC_DIR based on SRC_DIR structure (excluding startup from incs)"
-	@mkdir -p $(OBJ_DIR)/startup
-	@echo "Created: $(OBJ_DIR)/startup (object files only)"
-	@$(foreach subdir,$(SRC_SUBDIRS),mkdir -p $(OBJ_DIR)/$(subdir) $(INC_DIR)/$(subdir) && echo "Created: $(OBJ_DIR)/$(subdir) and $(INC_DIR)/$(subdir)" &&) true
+	@echo "Creating build base directories if they do not exist ($(detected_OS))"
+	@$(call MKDIR,$(OBJ_DIR))
+	@$(call MKDIR,$(BIN_DIR))
+	@$(call MKDIR,$(SRC_DIR))
+	@$(call MKDIR,$(INC_DIR))
+	@$(call MKDIR,$(OUT_DIR))
+	@echo "Creating subdirectories in OBJ_DIR and INC_DIR based on SRC_DIR structure"
+	@$(call MKDIR,$(OBJ_DIR)/startup)
+	@$(foreach subdir,$(SRC_SUBDIRS),$(call MKDIR,$(OBJ_DIR)/$(subdir)) && $(call MKDIR,$(INC_DIR)/$(subdir)) &&) echo "Created peripheral directories"
 	@echo "Moving header files from src subdirectories to corresponding inc subdirectories"
-	@$(foreach subdir,$(SRC_SUBDIRS),$(foreach header,$(wildcard $(SRC_DIR)/$(subdir)*.h),mv $(header) $(INC_DIR)/$(subdir) && echo "Moved: $(header) -> $(INC_DIR)/$(subdir)" &&)) true
-endif
+	@$(foreach subdir,$(SRC_SUBDIRS),$(foreach header,$(wildcard $(SRC_DIR)/$(subdir)*.h),$(call MOVE,$(header),$(INC_DIR)/$(subdir)) &&)) echo "Headers moved"
 	@echo "Build directories created successfully"
 
 # Display the source files, object files, and include directories
 debug:
+	@echo "Build system debug info ($(detected_OS)):"
 	@echo "Source files:"
-	@echo $(SRCS)
+	@$(foreach src,$(SRCS),echo "  $(src)" &&) echo ""
 	@echo "Object files:"
-	@echo $(OBJS)
+	@$(foreach obj,$(OBJS),echo "  $(obj)" &&) echo ""
 	@echo "Include directories:"
-	@echo $(INCS)
+	@$(foreach inc,$(subst -I",,$(subst ",,$(INCS))),echo "  -I\"$(inc)\"" &&) echo ""
+	@echo "Include subdirectories found:"
+	@$(foreach dir,$(INC_SUBDIRS),echo "  $(dir)" &&) echo ""
+	@echo "Include flags generated:"
+	@$(foreach flag,$(INC_FLAGS),echo "  $(flag)" &&) echo ""
+	@echo "Source subdirectories found:"
+	@$(foreach dir,$(SRC_SUBDIRS),echo "  $(dir)" &&) echo ""
+	@echo "DFP Include path:"
+	@echo "  $(DFP_INCLUDE)"
 	@echo "Linker script:"
-	@echo $(LINKER_SCRIPT)
+	@echo "  $(LINKER_SCRIPT)"
 
 
 # For xc32 Compiler help with less use: make help less
@@ -178,14 +210,11 @@ endif
 
 
 clean:
-	@echo "Cleaning up object files and binaries"
-ifeq ($(OS),Windows_NT)
-	@if exist "$(BIN_DIR)\*" del /q "$(BIN_DIR)\*" >nul 2>&1
-	@if exist "$(OBJ_DIR)\*" rmdir /s /q "$(OBJ_DIR)" >nul 2>&1 && mkdir "$(OBJ_DIR)" >nul 2>&1
-	@if exist "$(OUT_DIR)\*" del /q "$(OUT_DIR)\*" >nul 2>&1
-else
-	@rm -rf $(BIN_DIR)/* $(OBJ_DIR)/* $(OUT_DIR)/* 2>/dev/null || true
-endif
+	@echo "Cleaning up object files and binaries ($(detected_OS))"
+	@$(call RM,$(BIN_DIR)/*) 2>$(NULL_DEVICE) || true
+	@$(call RMDIR,$(OBJ_DIR)) 2>$(NULL_DEVICE) || true
+	@$(call MKDIR,$(OBJ_DIR))
+	@$(call RM,$(OUT_DIR)/*) 2>$(NULL_DEVICE) || true
 	@echo "Clean complete."
 
 

@@ -50,6 +50,8 @@
 // *****************************************************************************
 #include "interrupts.h"
 #include "definitions.h"
+#include "peripheral/tmr1/plib_tmr1.h"
+#include "peripheral/uart/plib_uart2.h"
 
 
 

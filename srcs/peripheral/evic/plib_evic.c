@@ -42,9 +42,7 @@
 
 #include "device.h"
 #include "plib_evic.h"
-#include "interrupts.h"
-
-
+#include "../../interrupts.h"
 // *****************************************************************************
 // *****************************************************************************
 // Section: IRQ Implementation

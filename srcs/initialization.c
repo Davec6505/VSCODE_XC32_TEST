@@ -45,6 +45,11 @@
 // *****************************************************************************
 #include "definitions.h"
 #include "device.h"
+#include "peripheral/clk/plib_clk.h"
+#include "peripheral/gpio/plib_gpio.h"
+#include "peripheral/uart/plib_uart2.h"
+#include "peripheral/tmr1/plib_tmr1.h"
+#include "peripheral/evic/plib_evic.h"
 
 
 // ****************************************************************************

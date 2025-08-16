@@ -25,7 +25,11 @@
 #include <stddef.h>                     // Defines NULL
 #include <stdbool.h>                    // Defines true
 #include <stdlib.h>                     // Defines EXIT_FAILURE
+#include <stdint.h>                     // Defines uint32_t, uintptr_t
 #include "definitions.h"                // SYS function prototypes
+#include "peripheral/tmr1/plib_tmr1.h"
+#include "peripheral/uart/plib_uart2.h"
+#include "peripheral/gpio/plib_gpio.h"
 
 
 // *****************************************************************************

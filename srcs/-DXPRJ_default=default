@@ -1,9 +1,14 @@
-../objs/cips/uart/plib_uart3.o: ../srcs/cips/uart/plib_uart3.c \
- ../incs/device.h ../incs/toolchain_specifics.h \
- ../incs/cips/uart/plib_uart3.h
+../objs/peripheral/uart/plib_uart2.o: \
+ ../srcs/peripheral/uart/plib_uart2.c ../incs/device.h \
+ ../incs/toolchain_specifics.h ../incs/peripheral/uart/plib_uart2.h \
+ ../incs/peripheral/uart/plib_uart_common.h ../incs/interrupts.h
 
 ../incs/device.h:
 
 ../incs/toolchain_specifics.h:
 
-../incs/cips/uart/plib_uart3.h:
+../incs/peripheral/uart/plib_uart2.h:
+
+../incs/peripheral/uart/plib_uart_common.h:
+
+../incs/interrupts.h:
