@@ -1,0 +1,136 @@
+{
+  "project_info": {
+    "name": "TestConfigProject",
+    "device": "32MZ1024EFH064",
+    "generated_date": "2025-08-17T22:48:30.842082",
+    "generator_version": "PIC32MZ Project Builder v1.0",
+    "mikroc_support": true
+  },
+  "project_configuration": {
+    "project_name": "TestConfigProject",
+    "device": "32MZ1024EFH064",
+    "output_dir": ".",
+    "mikroc_support": true,
+    "uart_enabled": true,
+    "timer_enabled": true,
+    "gpio_enabled": true,
+    "clock_enabled": true,
+    "dma_enabled": false,
+    "spi_enabled": false,
+    "i2c_enabled": false
+  },
+  "uart_configuration": {
+    "uart_module": "UART3",
+    "baud_rate": "230400",
+    "data_bits": "9",
+    "parity": "None",
+    "stop_bits": "1",
+    "flow_control": "None",
+    "rx_interrupt": true,
+    "tx_interrupt": false,
+    "error_interrupt": true,
+    "rx_buffer_size": "128",
+    "tx_buffer_size": "128",
+    "wake_on_start": false,
+    "loopback": false,
+    "auto_address": false,
+    "address_mask": "0xFF",
+    "rx_polarity": "Normal",
+    "tx_polarity": "Normal"
+  },
+  "clock_configuration": {
+    "primary_osc": "HS",
+    "pll_enabled": true,
+    "input_freq": "12.0",
+    "pll_input_div": "2",
+    "pll_mult": "15",
+    "pll_output_div": "1",
+    "system_freq": "80.0",
+    "peripheral_freq": "80.0",
+    "usb_pll_enabled": false,
+    "reference_clock_enabled": false,
+    "pbclk1_enabled": true,
+    "pbclk1_div": "0 = ÷1",
+    "pbclk2_enabled": true,
+    "pbclk2_div": "0 = ÷1",
+    "pbclk3_enabled": true,
+    "pbclk3_div": "0 = ÷1",
+    "pbclk4_enabled": false,
+    "pbclk4_div": "0 = ÷1",
+    "pbclk5_enabled": false,
+    "pbclk5_div": "0 = ÷1",
+    "pbclk6_enabled": false,
+    "pbclk6_div": "0 = ÷1",
+    "pbclk7_enabled": false,
+    "pbclk7_div": "0 = ÷1"
+  },
+  "enabled_peripherals": {
+    "uart": true,
+    "timer": true,
+    "gpio": true,
+    "clock": true,
+    "dma": false,
+    "spi": false,
+    "i2c": false
+  },
+  "peripheral_details": {
+    "uart": {
+      "module": "UART3",
+      "baud_rate": "230400",
+      "data_bits": "9",
+      "parity": "None",
+      "stop_bits": "1",
+      "interrupts_enabled": {
+        "rx": true,
+        "tx": false,
+        "error": true
+      }
+    },
+    "clock": {
+      "primary_oscillator": "HS",
+      "input_frequency_mhz": "12.0",
+      "pll_enabled": true,
+      "system_frequency_mhz": "80.0",
+      "peripheral_bus_clocks": {
+        "pbclk1": {
+          "enabled": true,
+          "divider": "0 = ÷1"
+        },
+        "pbclk2": {
+          "enabled": true,
+          "divider": "0 = ÷1"
+        },
+        "pbclk3": {
+          "enabled": true,
+          "divider": "0 = ÷1"
+        },
+        "pbclk4": {
+          "enabled": false,
+          "divider": "0 = ÷1"
+        },
+        "pbclk5": {
+          "enabled": false,
+          "divider": "0 = ÷1"
+        },
+        "pbclk6": {
+          "enabled": false,
+          "divider": "0 = ÷1"
+        },
+        "pbclk7": {
+          "enabled": false,
+          "divider": "0 = ÷1"
+        }
+      }
+    }
+  },
+  "build_information": {
+    "compiler": "XC32 v4.60+",
+    "build_system": "GNU Make",
+    "target_architecture": "PIC32MZ",
+    "configuration_notes": [
+      "This file contains the complete project configuration",
+      "It can be used to recreate the project with identical settings",
+      "Import this file using 'Load Template' in PIC32MZ Project Builder"
+    ]
+  }
+}

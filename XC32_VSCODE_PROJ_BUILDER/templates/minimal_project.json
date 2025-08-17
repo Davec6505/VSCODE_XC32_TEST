@@ -1,0 +1,13 @@
+{
+  "project_name": "MinimalProject",
+  "device": "32MZ1024EFH064",
+  "output_dir": "C:\\Users\\Automation\\GIT",
+  "mikroc_support": false,
+  "uart_enabled": false,
+  "timer_enabled": false,
+  "gpio_enabled": true,
+  "clock_enabled": true,
+  "dma_enabled": false,
+  "spi_enabled": false,
+  "i2c_enabled": false
+}

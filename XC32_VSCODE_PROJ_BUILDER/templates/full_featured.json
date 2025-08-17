@@ -1,0 +1,13 @@
+{
+  "project_name": "FullFeatured",
+  "device": "32MZ2048EFH064",
+  "output_dir": "C:\\Users\\Automation\\GIT",
+  "mikroc_support": true,
+  "uart_enabled": true,
+  "timer_enabled": true,
+  "gpio_enabled": true,
+  "clock_enabled": true,
+  "dma_enabled": true,
+  "spi_enabled": true,
+  "i2c_enabled": true
+}
