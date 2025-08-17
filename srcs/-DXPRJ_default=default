@@ -1,14 +1,22 @@
-../objs/peripheral/uart/plib_uart2.o: \
- ../srcs/peripheral/uart/plib_uart2.c ../incs/device.h \
- ../incs/toolchain_specifics.h ../incs/peripheral/uart/plib_uart2.h \
- ../incs/peripheral/uart/plib_uart_common.h ../incs/interrupts.h
+../objs/main.o: ../srcs/main.c ../incs/definitions.h \
+ ../incs/peripheral/tmr1/plib_tmr1.h ../incs/device.h \
+ ../incs/toolchain_specifics.h ../incs/peripheral/tmr1/plib_tmr1_common.h \
+ ../incs/peripheral/uart/plib_uart2.h \
+ ../incs/peripheral/uart/plib_uart_common.h \
+ ../incs/peripheral/gpio/plib_gpio.h
+
+../incs/definitions.h:
+
+../incs/peripheral/tmr1/plib_tmr1.h:
 
 ../incs/device.h:
 
 ../incs/toolchain_specifics.h:
 
+../incs/peripheral/tmr1/plib_tmr1_common.h:
+
 ../incs/peripheral/uart/plib_uart2.h:
 
 ../incs/peripheral/uart/plib_uart_common.h:
 
-../incs/interrupts.h:
+../incs/peripheral/gpio/plib_gpio.h:
